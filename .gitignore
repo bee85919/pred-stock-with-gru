@@ -1,9 +1,5 @@
-data_21/
-data_22/
+__pycache__/
+data/
 dataset/
-models_21/
-prdcts_22/
-pred/
 
 .DS_Store
-__pycache__/

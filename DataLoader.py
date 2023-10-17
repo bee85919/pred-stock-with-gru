@@ -3,11 +3,13 @@ import os
 
 class DataLoader:
     def __init__(self, data_amex_path, data_nsdq_path, data_nyse_path, period, year, month):
+        print("DataLoader is initializing...")
         data_amex, data_nsdq, data_nyse = self._read_data(data_amex_path, data_nsdq_path, data_nyse_path)
-        self._ensure_data_directory_exists()
+        self._make_dirs()
         data = self._preprocess_data(data_amex, data_nsdq, data_nyse)
         filtered_data = self._get_data_from_date(data, period, year, month)
         self._save_data(filtered_data)
+        print("DataLoader is initialized!")
         self.data = self._load_data()
 
     def _read_data(self, data_amex_path, data_nsdq_path, data_nyse_path):
