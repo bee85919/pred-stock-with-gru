@@ -2,9 +2,9 @@ import pandas as pd
 import os
 
 class DataLoader:
-    def __init__(self, data_amex_path, data_nsdq_path, data_nyse_path, period, year, month):
+    def __init__(self, csv_paths, period, year, month):
         print("DataLoader is initializing...")
-        data_amex, data_nsdq, data_nyse = self._read_data(data_amex_path, data_nsdq_path, data_nyse_path)
+        data_amex, data_nsdq, data_nyse = self._read_data(csv_paths)
         self._make_dirs()
         data = self._preprocess_data(data_amex, data_nsdq, data_nyse)
         filtered_data = self._get_data_from_date(data, period, year, month)
@@ -12,15 +12,16 @@ class DataLoader:
         print("DataLoader is initialized!")
         self.data = self._load_data()
 
-    def _read_data(self, data_amex_path, data_nsdq_path, data_nyse_path):
-        data_amex = pd.read_csv(data_amex_path)
-        data_nsdq = pd.read_csv(data_nsdq_path)
-        data_nyse = pd.read_csv(data_nyse_path)
-        return data_amex, data_nsdq, data_nyse
+
+    def _read_data(self, csv_paths):
+        csv_reads = [pd.read_csv(path) for path in csv_paths]
+        return csv_reads
+
 
     def _make_dirs(self):
-        if not os.path.exists('./data'):
-            os.makedirs('./data')
+        if not os.path.exists('./dataset_concated'):
+            os.makedirs('./dataset_concated')
+
 
     def _preprocess_data(self, data_amex, data_nsdq, data_nyse):
         data = pd.concat([data_amex, data_nsdq, data_nyse])
@@ -30,13 +31,16 @@ class DataLoader:
         data = data[['symbol', 'Adj Close', 'Open', 'High', 'Low', 'Close', 'Volume']]
         return data
 
+
     def _get_data_from_date(self, data, period, year, month):
         date_start = pd.Timestamp(year=year, month=month, day=1)
         date_end = date_start + pd.DateOffset(months=period)
         return data[(data.index >= date_start) & (data.index <= date_end)]
 
+
     def _save_data(self, data):
-        data.to_csv('./data/data.csv')
+        data.to_csv('./dataset_concated/data.csv')
+
 
     def _load_data(self):
-        return pd.read_csv('./data/data.csv', index_col='Date', parse_dates=True)
+        return pd.read_csv('./dataset_concated/data.csv', index_col='Date', parse_dates=True)

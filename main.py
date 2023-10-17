@@ -1,12 +1,17 @@
+import pandas as pd
+
 from DataLoader import DataLoader
+from DataExtractor import DataExtractor
 
 def main():        
-    data_amex_path = './dataset/amex_data.csv'
-    data_nsdq_path = './dataset/nasdaq_data.csv'
-    data_nyse_path = './dataset/nyse_data.csv'
+    csv_paths = ['./dataset/amex_data.csv',
+                 './dataset/nasdaq_data.csv',
+                 './dataset/nyse_data.csv']
 
-    data = DataLoader(data_amex_path, data_nsdq_path, data_nyse_path, period=12, year=2022, month=9).data
-    print(data)
+    # data = DataLoader(csv_paths, period=12, year=2022, month=9).data
+    data = pd.read_csv('./dataset_concated/data.csv', index_col='Date', parse_dates=True)
+    extractor = DataExtractor(data, n=10)
+    symbols_divided = extractor.symbols_divided
 
 if __name__ == "__main__":
     main()
