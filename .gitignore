@@ -1,6 +1,6 @@
 __pycache__/
 dataset/
-dataset_concated/
-train_dataset/
+data_concated/
+data_prepared/
 
 .DS_Store
