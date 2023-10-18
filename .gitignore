@@ -1,6 +1,6 @@
 __pycache__/
 dataset/
-data_concated/
+data/concated/
 data_prepared/
 data_test/
 data_train/

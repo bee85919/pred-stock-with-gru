@@ -10,8 +10,8 @@ def main():
                  './dataset/nasdaq_data.csv',
                  './dataset/nyse_data.csv']
 
-    DataLoader(csv_paths, year=2022, month=9, period=12)
-    data = pd.read_csv('./data_concated/data.csv')
+    DataLoader(csv_paths, year=2023, month=9, day=31, period=70)
+    data = pd.read_csv('./data/concated/data.csv')
     symbols = DivideData(data, n=10).get_divided_symbols()
     
     GetData(data, symbols)
