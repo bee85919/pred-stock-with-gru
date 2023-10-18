@@ -1,3 +1,4 @@
+# Train.py
 import os
 import pandas as pd
 from Normalize import Normalize
@@ -8,18 +9,16 @@ class Train:
     def __init__(self, symbols_divided):
         self.symbols_divided = symbols_divided
 
-    def train_and_save_model(self):
+    def train_and_save_models(self):
         os.makedirs("model", exist_ok=True)
         os.makedirs("predict", exist_ok=True)
 
         # GRU 모델 초기화
         gru = GRUTrainer()
 
-        # symbol 별로 전처리, 학습, 저장
         for i, symbol_group in enumerate(self.symbols_divided):
             for idx, symbol in enumerate(symbol_group):
                 print(f"Group {i+1} of {len(self.symbols_divided)}: Symbol {idx + 1} of {len(symbol_group)} ({symbol}) processing...")
-
 
                 # 심볼별 csv 파일을 불러옵니다.
                 X_file_path = os.path.join("data_train", f"train_{symbol}.csv")
@@ -34,12 +33,16 @@ class Train:
                     X_train, y_train, X_test, sc = normalizer.ts_train_test_normalize()
 
                     # 모델 학습 및 예측
-                    pred = gru.train(X_train, y_train, X_test, sc)
-
-                    # 모델을 keras 형식으로 저장
-                    gru.get_model().save(os.path.join("model", f"model_{symbol}.keras"))
+                    prediction = gru.train(X_train, y_train, X_test, sc)
+                    
+                    # 예측값과 날짜를 함께 저장
+                    prediction_dates = y['Date'][1:].reset_index(drop=True)  # 예를 들어, 날짜는 test_data의 'Date' 칼럼에서 가져옵니다.
+                    prediction_df = pd.DataFrame({
+                        'Date': prediction_dates,
+                        'Adj Close': prediction[:, 0],
+                    })
 
                     # 예측 결과를 CSV 형식으로 저장
-                    pd.DataFrame(pred).to_csv(os.path.join("predict", f"pred_{symbol}.csv"), index=False)
+                    prediction_df.to_csv(os.path.join("predict", f"pred_{symbol}.csv"), index=False)
                 else:
                     print(f"{symbol}에 해당하는 csv 파일을 찾을 수 없습니다.")
