@@ -8,9 +8,9 @@ class Train:
     def __init__(self, symbols_divided):
         self.symbols_divided = symbols_divided
 
-    def train_and_save_models(self):
-        os.makedirs("models", exist_ok=True)
-        os.makedirs("predicts", exist_ok=True)
+    def train_and_save_model(self):
+        os.makedirs("model", exist_ok=True)
+        os.makedirs("predict", exist_ok=True)
 
         # GRU 모델 초기화
         gru = GRUTrainer()
@@ -22,8 +22,8 @@ class Train:
 
 
                 # 심볼별 csv 파일을 불러옵니다.
-                X_file_path = os.path.join("train_data", f"train_data_{symbol}.csv")
-                y_file_path = os.path.join("test_data", f"test_data_{symbol}.csv")
+                X_file_path = os.path.join("data_train", f"train_{symbol}.csv")
+                y_file_path = os.path.join("data_test", f"test_{symbol}.csv")
 
                 if os.path.exists(X_file_path) and os.path.exists(y_file_path):
                     X = pd.read_csv(X_file_path)
@@ -34,12 +34,12 @@ class Train:
                     X_train, y_train, X_test, sc = normalizer.ts_train_test_normalize()
 
                     # 모델 학습 및 예측
-                    prediction = gru.train(X_train, y_train, X_test, sc)
+                    pred = gru.train(X_train, y_train, X_test, sc)
 
                     # 모델을 keras 형식으로 저장
-                    gru.get_model().save(os.path.join("models", f"model_{symbol}.keras"))
+                    gru.get_model().save(os.path.join("model", f"model_{symbol}.keras"))
 
                     # 예측 결과를 CSV 형식으로 저장
-                    pd.DataFrame(prediction).to_csv(os.path.join("predicts", f"prediction_{symbol}.csv"), index=False)
+                    pd.DataFrame(pred).to_csv(os.path.join("predict", f"pred_{symbol}.csv"), index=False)
                 else:
                     print(f"{symbol}에 해당하는 csv 파일을 찾을 수 없습니다.")

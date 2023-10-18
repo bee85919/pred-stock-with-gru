@@ -2,5 +2,9 @@ __pycache__/
 dataset/
 data_concated/
 data_prepared/
+data_test/
+data_train/
+model/
+predict/
 
 .DS_Store

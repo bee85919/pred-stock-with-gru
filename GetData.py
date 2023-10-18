@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 
 class GetData:
     def __init__(self, data, symbols_divided):
@@ -18,14 +19,17 @@ class GetData:
             os.makedirs("data_prepared")
         else:
             print("'data_prepared' directory already exists.")
-    
+
     def get_data_prepared(self, i, n, symbols):
         total_symbols = len(symbols)
         for index, symbol in enumerate(symbols):
             temp = self.data[self.data['symbol'] == symbol]
             if len(temp) == 251:
+                # Date를 인덱스로 설정하고 'symbol' 열을 제거
+                temp = temp.set_index('Date').drop(columns=['symbol'])
+                
                 temp_path = os.path.join("data_prepared", f"{symbol}.csv")
-                temp.to_csv(temp_path, index=False)
+                temp.to_csv(temp_path)
                 print(f"Processing order: {i+1}/{n}, symbol {index+1}/{total_symbols}: {symbol} ... Saved!")
             else:
                 print(f"Processing order: {i+1}/{n}, symbol {index+1}/{total_symbols}: {symbol} ... Skipped due to row count!")

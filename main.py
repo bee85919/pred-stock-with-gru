@@ -12,13 +12,11 @@ def main():
 
     DataLoader(csv_paths, year=2022, month=9, period=12)
     data = pd.read_csv('./data_concated/data.csv')
-    symbols_divided = DivideData(data, n=10).get_divided_symbols()
+    symbols = DivideData(data, n=10).get_divided_symbols()
     
-    GetData(data, symbols_divided)
+    GetData(data, symbols)
     SplitData.split_data('./data_prepared')
-    
-    trainer = Train(symbols_divided)
-    trainer.train_and_save_models()
+    Train(symbols).train_and_save_model()
 
 if __name__ == "__main__":
     main()

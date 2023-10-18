@@ -1,5 +1,5 @@
 from keras.layers import Dense, GRU
-from keras.models import Sequential
+from keras.model import Sequential
 from keras.optimizers.legacy import SGD
 
 class GRUTrainer:
@@ -27,11 +27,11 @@ class GRUTrainer:
                        batch_size=150, 
                        verbose=0)
 
-        # Prediction
-        prediction = self.model.predict(X_test)
-        prediction = sc.inverse_transform(prediction)
+        # pred
+        pred = self.model.predict(X_test)
+        pred = sc.inverse_transform(pred)
 
-        return prediction
+        return pred
     
 
     def get_model(self):
