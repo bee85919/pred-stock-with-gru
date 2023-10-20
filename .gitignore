@@ -1,10 +1,6 @@
 __pycache__/
 dataset/
-data/concated/
-data_prepared/
-data_test/
-data_train/
-model/
-predict/
+data/
 
+test.ipynb
 .DS_Store

@@ -2,24 +2,24 @@ import os
 import pandas as pd
 
 class SplitData:
-    def __init__(self, data, symbol, train_ratio=0.87):
+    def __init__(self, data, symbol, len_test=23):
         self.data = data
         self.symbol = symbol
-        self.train_ratio = train_ratio
+        self.len_test = len_test
 
     def splitter(self):
         total_rows = len(self.data)
-        train_size = int(total_rows * self.train_ratio)
+        train_size = total_rows - self.len_test
         train_set = self.data.iloc[:train_size]
         test_set = self.data.iloc[train_size:]
 
         # 폴더 생성
-        os.makedirs("data_train", exist_ok=True)
-        os.makedirs("data_test", exist_ok=True)
+        os.makedirs("data/train", exist_ok=True)
+        os.makedirs("data/test", exist_ok=True)
 
         # 파일 경로
-        train_file_path = os.path.join("data_train", f"train_{self.symbol}.csv")
-        test_file_path = os.path.join("data_test", f"test_{self.symbol}.csv")
+        train_file_path = os.path.join("data/train", f"train_{self.symbol}.csv")
+        test_file_path = os.path.join("data/test", f"test_{self.symbol}.csv")
 
         # 데이터 저장
         train_set.to_csv(train_file_path, index=False)
@@ -28,7 +28,7 @@ class SplitData:
         print(f"Saved {self.symbol} test data to {test_file_path}")
 
     @staticmethod
-    def split_data(folder_path):
+    def split_data(folder_path, len_test=23):
         total_files = len([name for name in os.listdir(folder_path) if name.endswith('.csv')])
         print(f"Total groups to process: {total_files}")
         for idx, file_name in enumerate(os.listdir(folder_path), 1):  # idx starts from 1
@@ -39,5 +39,5 @@ class SplitData:
                 
                 print(f"Processing file {symbol_name} in group {idx}")
                 file_data = pd.read_csv(file_path)
-                split_data = SplitData(file_data, symbol_name)                
+                split_data = SplitData(file_data, symbol_name, len_test=len_test)                
                 split_data.splitter()

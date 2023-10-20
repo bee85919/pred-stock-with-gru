@@ -1,35 +1,34 @@
 import os
 import pandas as pd
 
+
 class GetData:
-    def __init__(self, data, symbols_divided):
+    def __init__(self, data, symbols):
         self.data = data
-        self.symbols_divided = symbols_divided
+        self.symbols = symbols
 
         self.make_dirs()        
         print("Generating datasets for symbols...")
-        for i, divided_symbols in enumerate(self.symbols_divided):
-            self.get_data_prepared(i, len(self.symbols_divided), divided_symbols)
+        self.get_data_prepared(self.symbols)
         print("Data extraction completed.")
 
     def make_dirs(self):
         print("Checking or creating directory for datasets...")
-        if not os.path.exists("data_prepared"):
-            print("Creating 'data_prepared' directory...")
-            os.makedirs("data_prepared")
+        if not os.path.exists("./data/prepared"):
+            print("Creating 'data/prepared' directory...")
+            os.makedirs("./data/prepared")
         else:
-            print("'data_prepared' directory already exists.")
+            print("'./data/prepared' directory already exists.")
 
-    def get_data_prepared(self, i, n, symbols):
+    def get_data_prepared(self, symbols):
         total_symbols = len(symbols)
         for index, symbol in enumerate(symbols):
             temp = self.data[self.data['symbol'] == symbol]
-            if len(temp) == 251:
+            if len(temp) == 206:
                 # Date를 인덱스로 설정하고 'symbol' 열을 제거
-                temp = temp.set_index('Date').drop(columns=['symbol'])
-                
-                temp_path = os.path.join("data_prepared", f"{symbol}.csv")
+                temp = temp.set_index('Date').drop(columns=['symbol'])                
+                temp_path = os.path.join("./data/prepared", f"{symbol}.csv")
                 temp.to_csv(temp_path)
-                print(f"Processing order: {i+1}/{n}, symbol {index+1}/{total_symbols}: {symbol} ... Saved!")
+                print(f"Symbol {index+1}/{total_symbols}: {symbol} ... Saved!")
             else:
-                print(f"Processing order: {i+1}/{n}, symbol {index+1}/{total_symbols}: {symbol} ... Skipped due to row count!")
+                print(f"Symbol {index+1}/{total_symbols}: {symbol} ... Skipped due to row count!")

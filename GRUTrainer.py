@@ -1,5 +1,5 @@
 from keras.layers import Dense, GRU
-from keras.model import Sequential
+from keras.models import Sequential
 from keras.optimizers.legacy import SGD
 
 class GRUTrainer:
