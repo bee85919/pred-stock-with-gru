@@ -39,6 +39,8 @@ class Train:
                 log_file.write(f"NaN in X_train: {np.isnan(X_train).sum()}\n")
                 log_file.write(f"NaN in y_train: {np.isnan(y_train).sum()}\n")
                 log_file.write(f"NaN in X_test: {np.isnan(X_test).sum()}\n")
+                log_file.write(f"sc min_: {sc.min_}\n")
+                log_file.write(f"sc scale_: {sc.scale_}\n")
 
                 # 모델 학습 및 예측
                 prediction = gru.train(X_train, y_train, X_test, sc)

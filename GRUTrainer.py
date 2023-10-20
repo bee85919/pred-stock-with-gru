@@ -24,8 +24,8 @@ class GRUTrainer:
         self.model.fit(X_train, 
                        y_train, 
                        epochs=50, 
-                       batch_size=150, 
-                       verbose=0)
+                       batch_size=50, 
+                       verbose=1)
 
         # pred
         pred = self.model.predict(X_test)
