@@ -25,7 +25,7 @@ class GRUTrainer:
                        y_train, 
                        epochs=50, 
                        batch_size=50, 
-                       verbose=1)
+                       verbose=0)
 
         # pred
         pred = self.model.predict(X_test)

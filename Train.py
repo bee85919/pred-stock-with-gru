@@ -11,15 +11,15 @@ class Train:
 
     def train_and_save_models(self):
         os.makedirs("data/model", exist_ok=True)
-        os.makedirs("data/predict", exist_ok=True)
+        os.makedirs("data/pred", exist_ok=True)
         log_file = open("debug_logs.txt", "w")
-
-        # GRU 모델 초기화
-        gru = GRUTrainer()
 
         for idx, symbol in enumerate(self.symbols):  # 일차원 리스트를 순회
             print(f"Symbol {idx + 1} of {len(self.symbols)} ({symbol}) processing...")
             log_file.write(f"Symbol {idx + 1} of {len(self.symbols)} ({symbol}) processing...\n")
+
+            # GRU 모델 초기화
+            gru = GRUTrainer()
 
             # 심볼별 csv 파일을 불러옵니다.
             X_file_path = os.path.join("data/train", f"train_{symbol}.csv")
@@ -57,7 +57,7 @@ class Train:
                 log_file.write(f"NaN in prediction_df: {prediction_df.isna().sum().sum()}\n")
 
                 # 예측 결과를 CSV 형식으로 저장
-                prediction_df.to_csv(os.path.join("data/predict", f"pred_{symbol}.csv"), index=False)
+                prediction_df.to_csv(os.path.join("data/pred", f"pred_{symbol}.csv"), index=False)
             else:
                 print(f"{symbol}에 해당하는 csv 파일을 찾을 수 없습니다.")
                 log_file.write(f"{symbol}에 해당하는 csv 파일을 찾을 수 없습니다.\n")

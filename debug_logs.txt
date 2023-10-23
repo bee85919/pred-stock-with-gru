@@ -1,0 +1,86 @@
+Symbol 1 of 4193 (AACG) processing...
+X_train shape: (177, 5, 1)
+y_train shape: (177, 2)
+X_test shape: (21, 5, 1)
+NaN in X_train: 0
+NaN in y_train: 0
+NaN in X_test: 0
+sc min_: [-0.91472868]
+sc scale_: [0.7751938]
+NaN in prediction: 0
+NaN in prediction_df: 0
+Symbol 2 of 4193 (AACI) processing...
+X_train shape: (177, 5, 1)
+y_train shape: (177, 2)
+X_test shape: (21, 5, 1)
+NaN in X_train: 0
+NaN in y_train: 0
+NaN in X_test: 0
+sc min_: [-12.4875]
+sc scale_: [1.25]
+NaN in prediction: 0
+NaN in prediction_df: 0
+Symbol 3 of 4193 (AACIU) processing...
+X_train shape: (177, 5, 1)
+y_train shape: (177, 2)
+X_test shape: (21, 5, 1)
+NaN in X_train: 0
+NaN in y_train: 0
+NaN in X_test: 0
+sc min_: [-14.21428571]
+sc scale_: [1.42857143]
+NaN in prediction: 0
+NaN in prediction_df: 0
+Symbol 4 of 4193 (AADI) processing...
+X_train shape: (177, 5, 1)
+y_train shape: (177, 2)
+X_test shape: (21, 5, 1)
+NaN in X_train: 0
+NaN in y_train: 0
+NaN in X_test: 0
+sc min_: [-0.64496314]
+sc scale_: [0.12285012]
+NaN in prediction: 0
+NaN in prediction_df: 0
+Symbol 5 of 4193 (AAL) processing...
+X_train shape: (177, 5, 1)
+y_train shape: (177, 2)
+X_test shape: (21, 5, 1)
+NaN in X_train: 0
+NaN in y_train: 0
+NaN in X_test: 0
+sc min_: [-1.90123486]
+sc scale_: [0.15432101]
+NaN in prediction: 0
+NaN in prediction_df: 0
+Symbol 6 of 4193 (AAMC) processing...
+X_train shape: (177, 5, 1)
+y_train shape: (177, 2)
+X_test shape: (21, 5, 1)
+NaN in X_train: 0
+NaN in y_train: 0
+NaN in X_test: 0
+sc min_: [-0.0896992]
+sc scale_: [0.01082017]
+NaN in prediction: 0
+NaN in prediction_df: 0
+Symbol 7 of 4193 (AAME) processing...
+X_train shape: (177, 5, 1)
+y_train shape: (177, 2)
+X_test shape: (21, 5, 1)
+NaN in X_train: 0
+NaN in y_train: 0
+NaN in X_test: 0
+sc min_: [-1.69607977]
+sc scale_: [0.99140845]
+NaN in prediction: 0
+NaN in prediction_df: 0
+Symbol 8 of 4193 (AAOI) processing...
+X_train shape: (177, 5, 1)
+y_train shape: (177, 2)
+X_test shape: (21, 5, 1)
+NaN in X_train: 0
+NaN in y_train: 0
+NaN in X_test: 0
+sc min_: [-0.11849711]
+sc scale_: [0.07225434]
