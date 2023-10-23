@@ -14,11 +14,11 @@ class GetData:
 
     def make_dirs(self):
         print("Checking or creating directory for datasets...")
-        if not os.path.exists("./data/prepd"):
-            print("Creating 'data/prepd' directory...")
-            os.makedirs("./data/prepd")
+        if not os.path.exists("./data/prep"):
+            print("Creating 'data/prep' directory...")
+            os.makedirs("./data/prep")
         else:
-            print("'./data/prepd' directory already exists.")
+            print("'./data/prep' directory already exists.")
 
     def get_data_prepared(self, symbols):
         total_symbols = len(symbols)
@@ -27,7 +27,7 @@ class GetData:
             if len(temp) == 206:
                 # Date를 인덱스로 설정하고 'symbol' 열을 제거
                 temp = temp.set_index('Date').drop(columns=['symbol'])                
-                temp_path = os.path.join("./data/prepd", f"{symbol}.csv")
+                temp_path = os.path.join("./data/prep", f"{symbol}.csv")
                 temp.to_csv(temp_path)
                 print(f"Symbol {index+1}/{total_symbols}: {symbol} ... Saved!")
             else:

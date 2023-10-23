@@ -1,15 +1,15 @@
 from sklearn.preprocessing import MinMaxScaler 
 import numpy as np
 
-class Normalize:
+class Normalizer:
     def __init__(self, train_data, test_data, time_steps, for_periods):
         self.train_data = train_data
         self.test_data = test_data
         self.time_steps = time_steps
         self.for_periods = for_periods
-        self.X_train, self.y_train, self.X_test, self.sc = self.ts_train_test_normalize()
+        self.X_train, self.y_train, self.X_test, self.sc = self.normalize()
 
-    def ts_train_test_normalize(self):
+    def normalize(self):
         ts_train = self.train_data.iloc[:,1:2].values
         ts_test = self.test_data.iloc[:,1:2].values
 

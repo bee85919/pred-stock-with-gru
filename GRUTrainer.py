@@ -2,8 +2,13 @@ from keras.layers import Dense, GRU
 from keras.models import Sequential
 from keras.optimizers.legacy import SGD
 
+
 class GRUTrainer:
     def __init__(self):
+        self.model = None
+
+
+    def initialize_model(self):
         self.model = Sequential()
         self.model.add(GRU(units=50, 
                            return_sequences=True, 
@@ -24,7 +29,7 @@ class GRUTrainer:
         self.model.fit(X_train, 
                        y_train, 
                        epochs=50, 
-                       batch_size=50, 
+                       batch_size=100, 
                        verbose=0)
 
         # pred

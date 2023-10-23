@@ -1,6 +1,9 @@
-__pycache__/
-dataset/
+# 폴더
 data/
+dataset/
+__pycache__/
 
-test.ipynb
+# 파일 
 .DS_Store
+test.ipynb
+debug_logs.txt

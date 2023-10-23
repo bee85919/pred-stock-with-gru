@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-class SavePreds:
+class SavePred:
     def __init__(self, start_date, input_dir='./data/pred/', output_file='./data/merged_result.csv'):
         self.start_date = start_date
         self.input_dir = input_dir
