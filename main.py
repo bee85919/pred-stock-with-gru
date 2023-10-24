@@ -1,9 +1,11 @@
 import pandas as pd
+from multiprocessing import Pool
 from DataLoader import DataLoader
 from GetSymbol import GetSymbol
 from GetData import GetData
 from SplitData import SplitData
-from Batch import Batch
+from Train import Train
+from Pooler import Pooler
 from SavePred import SavePred
 
 
@@ -23,9 +25,17 @@ def main():
     
     # SplitData.split_data('./data/prep')
     
-    Batch(data, symbols, batch_size=50).process_batches()
+    # 테스트용 더미 심볼
+    test_symbols = ['A', 'B', 'C', 'D', 'E']
     
-    SavePred(start_date=f'{y}-{m}-{d}').merge_csv_files()
+    # Pooler 실행
+    Pooler(test_symbols, p_num=2).execute()
+    
+    Train.make_dir()
+    
+    Pooler(symbols, p_num=8).execute()
+    
+    # SavePred(start_date=f'{y}-{m}-{d}').merge_csv_files()
     
     
 if __name__ == "__main__":
