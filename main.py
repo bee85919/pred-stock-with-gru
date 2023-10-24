@@ -25,17 +25,13 @@ def main():
     
     # SplitData.split_data('./data/prep')
     
-    # 테스트용 더미 심볼
-    test_symbols = ['A', 'B', 'C', 'D', 'E']
-    
-    # Pooler 실행
-    Pooler(test_symbols, p_num=2).execute()
-    
     Train.make_dir()
     
-    Pooler(symbols, p_num=8).execute()
+    # Train.train_and_save('AMZN')
     
-    # SavePred(start_date=f'{y}-{m}-{d}').merge_csv_files()
+    Pooler(symbols, p_num=4).execute()
+    
+    SavePred(start_date=f'{y}-{m}-{d}').merge_csv_files()
     
     
 if __name__ == "__main__":

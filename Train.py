@@ -24,20 +24,25 @@ class Train:
 
     @staticmethod
     def create_and_save_df(pred, y, symbol):
-        df_pred = pd.DataFrame({'Adj Close': pred[:min(len(pred), len(y)-1), 0]})
-        df_pred.to_csv(os.path.join("data/pred", f"pred_{symbol}.csv"), index=False)
+        pred_df = pd.DataFrame({'Adj Close': pred[:min(len(pred), len(y)-1), 0]})
+        pred_df.to_csv(os.path.join("data/pred", f"pred_{symbol}.csv"), index=False)
+        return pred_df
 
 
     @staticmethod
-    def train_and_save(symbol):             
-        gru, log = GRUTrainer(), f"logs/log_{symbol}.txt"
-        gru.initialize_model()        
-        
-        X, y = Train.read_Xy(symbol)
-        if X is not None and y is not None:
-            X_train, y_train, X_test, sc = Normalizer(X, y, time_steps=5, for_periods=2).normalize()
-            pred = gru.train(X_train, y_train, X_test, sc)
-            pred_df = Train.create_and_save_df(pred, y, symbol)
-            Logger.log(log, symbol, X_train, X_test, y_train, sc, pred_df)
-        else:
-            Logger.err(log, symbol)
+    def train_and_save(symbol, idx=0, len_symbols=0):
+        try:
+            log = f"logs/log_{symbol}.txt"
+            gru = GRUTrainer(idx=idx, len_symbols=len_symbols)
+            gru.initialize_model()        
+            
+            X, y = Train.read_Xy(symbol)
+            if X is not None and y is not None:
+                X_train, y_train, X_test, sc = Normalizer(X, y, time_steps=5, for_periods=2).normalize()
+                pred = gru.train(X_train, y_train, X_test, sc, symbol)
+                pred_df = Train.create_and_save_df(pred, y, symbol)
+                Logger.log(log, symbol, X_train, X_test, y_train, sc, pred_df)
+            else:
+                Logger.err(log, symbol)
+        except Exception as e:
+            print(f"An error occurred: {e}")

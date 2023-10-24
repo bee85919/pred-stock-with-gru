@@ -4,8 +4,10 @@ from keras.optimizers.legacy import SGD
 
 
 class GRUTrainer:
-    def __init__(self):
+    def __init__(self, idx=0, len_symbols=0):
         self.model = None
+        self.idx = idx
+        self.len_symbols = len_symbols
 
 
     def initialize_model(self):
@@ -24,8 +26,8 @@ class GRUTrainer:
                            loss='mean_squared_error')
 
 
-    def train(self, X_train, y_train, X_test, sc):
-        # Fitting to the training set 
+    def train(self, X_train, y_train, X_test, sc, symbol):
+        print(f"Training started for {symbol}.. [{self.idx}/{self.len_symbols}]")
         self.model.fit(X_train, 
                        y_train, 
                        epochs=50, 
