@@ -2,13 +2,13 @@ import os
 import pandas as pd
 from dotenv import load_dotenv
 from multiprocessing import Pool
-from DataProcessing.DataLoader import DataLoader
-from DataProcessing.GetSymbol import GetSymbol
-from DataProcessing.GetData import GetData
-from DataProcessing.SplitData import SplitData
-from Train.Train import Train
-from Train.Pooler import Pooler
-from Save.SavePred import SavePred
+from modules.DataProcessing.DataLoader import DataLoader
+from modules.DataProcessing.GetSymbol import GetSymbol
+from modules.DataProcessing.GetData import GetData
+from modules.DataProcessing.SplitData import SplitData
+from modules.Train.Train import Train
+from modules.Train.Pooler import Pooler
+from modules.Save.SavePred import SavePred
 
 
 def main():
@@ -18,9 +18,9 @@ def main():
     data_path = os.getenv('data_path')    
     prep_path = os.getenv('prep_path')
                
-    csv_paths = ['./dataset/amex_data.csv',
-                 './dataset/nasdaq_data.csv',
-                 './dataset/nyse_data.csv']
+    csv_paths = ['./input/amex_data.csv',
+                 './input/nasdaq_data.csv',
+                 './input/nyse_data.csv']
     y, m, d, p = 2023, 9, 30, 300
     
     # DataLoader(csv_paths, year=y, month=m, day=d, period=p)
@@ -37,9 +37,9 @@ def main():
     
     # SplitData.split_data(prep_path)
     
-    # Train.make_dir()
+    # modules.Train.make_dir()
     
-    # Train.train_and_save('AMZN')
+    # modules.Train.train_and_save('AMZN')
     
     # Pooler(symbols, p_num=4).execute()
     

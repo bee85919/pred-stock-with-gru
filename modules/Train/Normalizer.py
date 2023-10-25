@@ -18,10 +18,10 @@ class Normalizer:
 
         X_train, y_train = [], []
         for i in range(self.time_steps, len(ts_train)-1):
-            X_train.append(ts_train_scaled[i-self.time_steps:i, 0])
-            y_train.append(ts_train_scaled[i:i+self.for_periods, 0])
+            X_modules.Train.append(ts_train_scaled[i-self.time_steps:i, 0])
+            y_modules.Train.append(ts_train_scaled[i:i+self.for_periods, 0])
         X_train, y_train = np.array(X_train), np.array(y_train)
-        X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
+        X_train = np.reshape(X_train, (X_modules.Train.shape[0], X_modules.Train.shape[1], 1))
 
         inputs = np.concatenate((ts_train, ts_test), axis=0)
         inputs = inputs[len(inputs)-len(ts_test)-self.time_steps:]

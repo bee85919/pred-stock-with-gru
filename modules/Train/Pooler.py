@@ -1,5 +1,5 @@
 from multiprocessing import Pool
-from Train.Train import Train
+from modules.Train.Train import Train
 
 
 class Pooler:
@@ -11,7 +11,7 @@ class Pooler:
 
     def process_and_count(self, args):
         idx, symbol = args
-        Train.train_and_save(symbol, idx=idx, len_symbols=self.len_symbols)
+        modules.Train.train_and_save(symbol, idx=idx, len_symbols=self.len_symbols)
 
 
     def execute(self):

@@ -1,8 +1,8 @@
 import os
 import pandas as pd
-from Train.Normalizer import Normalizer
-from Train.GRUTrainer import GRUTrainer
-from Train.Logger import Logger
+from modules.Train.Normalizer import Normalizer
+from modules.Train.GRUTrainer import GRUTrainer
+from modules.Train.Logger import Logger
 
 
 class Train:
@@ -35,11 +35,11 @@ class Train:
             gru = GRUTrainer(idx=idx, len_symbols=len_symbols)
             gru.initialize_model()        
             
-            X, y = Train.read_Xy(symbol)
+            X, y = modules.Train.read_Xy(symbol)
             if X is not None and y is not None:
                 X_train, y_train, X_test, sc = Normalizer(X, y, time_steps=5, for_periods=2).normalize()
                 pred = gru.train(X_train, y_train, X_test, sc, symbol)
-                pred_df = Train.create_and_save_df(pred, y, symbol)
+                pred_df = modules.Train.create_and_save_df(pred, y, symbol)
                 Logger.log(log, symbol, X_train, X_test, y_train, sc, pred_df)
             else:
                 Logger.err(log, symbol)

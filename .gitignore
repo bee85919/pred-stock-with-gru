@@ -1,7 +1,8 @@
 # 폴더
 logs/
 data/
-dataset/
+input/
+test/
 __pycache__/
 
 # 파일 

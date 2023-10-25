@@ -8,7 +8,7 @@ class DataLoader:
     def __init__(self, csv_paths, year, month, day, period=70):        
         print("DataLoader is initializing...")        
         load_dotenv()        
-        self.data_path = os.getenv('data_path')        
+        self.data_path = os.getenv('data_path')
         self.make_dirs()        
         self.data = self.load_and_preprocess_data(csv_paths, year, month, day, period)        
         print("DataLoader is initialized!")
