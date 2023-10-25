@@ -4,6 +4,7 @@ data/
 input/
 test/
 __pycache__/
+*/__pycache__/
 
 # 파일 
 .DS_Store
