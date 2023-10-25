@@ -1,6 +1,7 @@
 from multiprocessing import Pool
 from Train import Train
 
+
 class Pooler:
     def __init__(self, symbols, p_num=4):
         self.p_num = p_num

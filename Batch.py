@@ -20,5 +20,3 @@ class Batch:
             batch_symbols = self.symbols[i * self.batch_size: (i + 1) * self.batch_size]
             print(f"Processing batch {i + 1}/{self.batch_cnt + 1}...")
             self.process_batch(self.data, batch_symbols)
-            del batch_symbols
-            gc.collect()

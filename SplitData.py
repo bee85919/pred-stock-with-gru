@@ -1,11 +1,17 @@
 import os
 import pandas as pd
+from dotenv import load_dotenv
 
 class SplitData:
     def __init__(self, data, symbol, len_test=23):
+        load_dotenv()
+        self.train_path = os.getenv('train_path')
+        self.test_path = os.getenv('test_path')
+        
         self.data = data
         self.symbol = symbol
         self.len_test = len_test
+        
 
     def splitter(self):
         total_rows = len(self.data)
@@ -13,19 +19,17 @@ class SplitData:
         train_set = self.data.iloc[:train_size]
         test_set = self.data.iloc[train_size:]
 
-        # 폴더 생성
-        os.makedirs("data/train", exist_ok=True)
-        os.makedirs("data/test", exist_ok=True)
+        os.makedirs(self.train_path, exist_ok=True)
+        os.makedirs(self.test_path, exist_ok=True)
 
-        # 파일 경로
-        train_file_path = os.path.join("data/train", f"train_{self.symbol}.csv")
-        test_file_path = os.path.join("data/test", f"test_{self.symbol}.csv")
+        train_file_path = os.path.join(self.train_path, f"train_{self.symbol}.csv")
+        test_file_path = os.path.join(self.test_path, f"test_{self.symbol}.csv")
 
-        # 데이터 저장
         train_set.to_csv(train_file_path, index=False)
         test_set.to_csv(test_file_path, index=False)
         print(f"Saved {self.symbol} train data to {train_file_path}")
         print(f"Saved {self.symbol} test data to {test_file_path}")
+
 
     @staticmethod
     def split_data(folder_path, len_test=23):
