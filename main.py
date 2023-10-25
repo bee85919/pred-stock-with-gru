@@ -2,13 +2,13 @@ import os
 import pandas as pd
 from dotenv import load_dotenv
 from multiprocessing import Pool
-from DataLoader import DataLoader
-from GetSymbol import GetSymbol
-from GetData import GetData
-from SplitData import SplitData
-from Train import Train
-from Pooler import Pooler
-from SavePred import SavePred
+from DataProcessing.DataLoader import DataLoader
+from DataProcessing.GetSymbol import GetSymbol
+from DataProcessing.GetData import GetData
+from DataProcessing.SplitData import SplitData
+from Train.Train import Train
+from Train.Pooler import Pooler
+from Save.SavePred import SavePred
 
 
 def main():

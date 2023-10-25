@@ -1,5 +1,5 @@
 from multiprocessing import Pool
-from Train import Train
+from Train.Train import Train
 
 
 class Pooler:

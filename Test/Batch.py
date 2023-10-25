@@ -1,5 +1,5 @@
 import gc
-from Train import Train
+from Train.Train import Train
 
 
 class Batch:

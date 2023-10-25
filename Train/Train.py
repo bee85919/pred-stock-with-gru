@@ -1,8 +1,8 @@
 import os
 import pandas as pd
-from Normalizer import Normalizer
-from GRUTrainer import GRUTrainer
-from Logger import Logger
+from Train.Normalizer import Normalizer
+from Train.GRUTrainer import GRUTrainer
+from Train.Logger import Logger
 
 
 class Train:
