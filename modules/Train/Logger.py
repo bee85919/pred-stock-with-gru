@@ -8,9 +8,9 @@ class Logger:
                         Symbol ({symbol}) processed.
                         
                         Shape:
-                        - X_train : {X_modules.Train.shape}
-                        - y_train : {y_modules.Train.shape}
-                        - X_test : {X_test.shape}
+                        - X_train : {X_train.shape}
+                        - y_train : {y_train.shape}
+                        - X_test  : {X_test.shape}
                         
                         sc: 
                         - min_   : {sc.min_}

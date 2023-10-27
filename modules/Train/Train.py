@@ -1,8 +1,8 @@
 import os
 import pandas as pd
-from modules.Train.Normalizer import Normalizer
-from modules.Train.GRUTrainer import GRUTrainer
-from modules.Train.Logger import Logger
+from .Normalizer import Normalizer
+from .GRUTrainer import GRUTrainer
+from .Logger import Logger
 
 
 class Train:
@@ -31,16 +31,24 @@ class Train:
     @staticmethod
     def train_and_save(symbol, idx=0, len_symbols=0):
         try:
+            print('start')
             log = f"{os.getenv('logs_path')}/log_{symbol}.txt"
+            print('log created')
             gru = GRUTrainer(idx=idx, len_symbols=len_symbols)
-            gru.initialize_model()        
+            print('gru created')
+            gru.initialize_model()
+            print('model initilized')
             
-            X, y = modules.Train.read_Xy(symbol)
+            X, y = Train.read_Xy(symbol)
             if X is not None and y is not None:
                 X_train, y_train, X_test, sc = Normalizer(X, y, time_steps=5, for_periods=2).normalize()
-                pred = gru.train(X_train, y_train, X_test, sc, symbol)
-                pred_df = modules.Train.create_and_save_df(pred, y, symbol)
+                pred    = gru.train(X_train, y_train, X_test, sc, symbol)
+                print('data trained')
+                pred_df = Train.create_and_save_df(pred, y, symbol)
+                print('data saved')
                 Logger.log(log, symbol, X_train, X_test, y_train, sc, pred_df)
+                print('data logged')
+                
             else:
                 Logger.err(log, symbol)
         except Exception as e:

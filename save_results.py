@@ -1,10 +1,20 @@
-from modules.Save.SavePred import SavePred
+import os
+from dotenv import load_dotenv
+from modules.etc.TxtReader import TxtReader
+from modules.etc.SavePred import SavePred
 
 
-def save(y, m, d):
+load_dotenv()
+date_path = os.getenv('date_path')
+
+
+get = TxtReader().get_list
+y, m, d, _ = get(date_path)
+
+
+def save():
     SavePred(date=f'{y}-{m}-{d}').merge_csv_files()
 
 
 if __name__ == "__main__":
-    y, m, d = 2023, 9, 30
-    save(y, m, d)
+    save()
