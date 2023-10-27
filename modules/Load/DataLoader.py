@@ -1,16 +1,19 @@
 import pandas as pd
 import os
 from dotenv import load_dotenv
+from .GetSymbol import GetSymbol
 
 
 class DataLoader:
     
     def __init__(self, csv_paths, year, month, day, period=70):        
+        
         print("DataLoader is initializing...")        
         load_dotenv()        
-        self.data_path = os.getenv('data_path')
+        self.data_path = os.getenv('data_path')        
         self.make_dirs()        
-        self.data = self.load_and_preprocess_data(csv_paths, year, month, day, period)        
+        self.data = self.load_and_preprocess_data(csv_paths, year, month, day, period)
+        GetSymbol(self.data).get_symbols()        
         print("DataLoader is initialized!")
 
 
@@ -42,16 +45,20 @@ class DataLoader:
     
 
     def save_data(self, data):        
-        data.to_csv(os.path.join(self.data_path, 'data.csv'))
+        data.to_csv(self.data_path)
 
 
     def load_data(self):
-        return pd.read_csv(os.path.join(self.data_path, 'data.csv'), index_col='Date', parse_dates=True)
+        return pd.read_csv(self.data_path, index_col='Date', parse_dates=True)
     
     
     def load_and_preprocess_data(self, csv_paths, year, month, day, period):        
-        data_amex, data_nsdq, data_nyse = self.read_data(csv_paths)        
-        data = self.preprocess_data(data_amex, data_nsdq, data_nyse)        
-        data_filtered = self.get_data_from_date(data, year, month, day, period)        
+        print('loading csv files...')
+        data_amex, data_nsdq, data_nyse = self.read_data(csv_paths)    
+        print('processing csv files...')
+        data = self.preprocess_data(data_amex, data_nsdq, data_nyse)
+        print('filtering data...')        
+        data_filtered = self.get_data_from_date(data, year, month, day, period)    
+        print('saving data...')    
         self.save_data(data_filtered)        
         return self.load_data()

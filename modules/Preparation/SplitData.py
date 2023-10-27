@@ -2,8 +2,11 @@ import os
 import pandas as pd
 from dotenv import load_dotenv
 
+
 class SplitData:
+    
     def __init__(self, data, symbol, len_test=23):
+        
         load_dotenv()
         self.train_path = os.getenv('train_path')
         self.test_path = os.getenv('test_path')

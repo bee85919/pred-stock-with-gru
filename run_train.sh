@@ -3,9 +3,10 @@ count=0
 while true; do
   ((count++))
   python train_models.py
-  echo "train_models.py가 ${count}번 실행되었습니다."
+  total_symbols=$(cat ./input/symbols_length.txt)
+  echo "processing: ${count}/${total_symbols}"
 
-  if [[ ! $(cat ./input/test.txt) ]]; then
+  if [[ ! $(cat ./input/symbols.txt) ]]; then
     echo "작업이 완료되었습니다."
     break
   fi
