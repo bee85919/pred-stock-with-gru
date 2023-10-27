@@ -1,3 +1,3 @@
-chmod +x train.sh
+schmod +x train.sh
 chmod +x run.sh
 ./run.sh
