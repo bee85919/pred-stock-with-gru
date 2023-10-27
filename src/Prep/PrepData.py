@@ -4,23 +4,26 @@ from dotenv import load_dotenv
 from .GetSymbol import GetSymbol
 
 
-class DataLoader:
+class PrepData:
     
-    def __init__(self, csv_paths, year, month, day, period=70):        
-        
-        print("DataLoader is initializing...")        
+    def __init__(self, csv_path, year, month, day, period=70):
+                
         load_dotenv()        
-        self.data_path = os.getenv('data_path')        
-        self.make_dirs()        
-        self.data = self.load_and_preprocess_data(csv_paths, year, month, day, period)
-        GetSymbol(self.data).get_symbols()        
+        self.data_path = os.getenv('data_path')    
+        
+        print("DataLoader is initializing...")
+        self.make_dirs()
+        
+        self.data = self.load_and_preprocess_data(csv_path, year, month, day, period)
+        self.get_symbol()
+            
         print("DataLoader is initialized!")
 
 
-    def read_data(self, csv_paths):        
-        data_amex = pd.read_csv(csv_paths[0])        
-        data_nsdq = pd.read_csv(csv_paths[1])        
-        data_nyse = pd.read_csv(csv_paths[2])            
+    def read_data(self, csv_path):        
+        data_amex = pd.read_csv(csv_path[0])        
+        data_nsdq = pd.read_csv(csv_path[1])        
+        data_nyse = pd.read_csv(csv_path[2])            
         return data_amex, data_nsdq, data_nyse
 
 
@@ -34,7 +37,7 @@ class DataLoader:
         data = data.drop(columns=['Unnamed: 0'])        
         data['Date'] = pd.to_datetime(data['Date'])        
         data = data.set_index('Date').sort_values(by=['Date', 'symbol'])        
-        data = data[['symbol', 'Adj Close', 'Open', 'High', 'Low', 'Close', 'Volume']]        
+        data = data[['symbol', 'Adj Close', 'Open', 'High', 'Low', 'Close', 'Volume']]
         return data
     
 
@@ -52,9 +55,9 @@ class DataLoader:
         return pd.read_csv(self.data_path, index_col='Date', parse_dates=True)
     
     
-    def load_and_preprocess_data(self, csv_paths, year, month, day, period):        
+    def load_and_preprocess_data(self, csv_path, year, month, day, period):        
         print('loading csv files...')
-        data_amex, data_nsdq, data_nyse = self.read_data(csv_paths)    
+        data_amex, data_nsdq, data_nyse = self.read_data(csv_path)    
         print('processing csv files...')
         data = self.preprocess_data(data_amex, data_nsdq, data_nyse)
         print('filtering data...')        
@@ -62,3 +65,21 @@ class DataLoader:
         print('saving data...')    
         self.save_data(data_filtered)        
         return self.load_data()
+        
+        
+    def get_symbol(self):
+        
+        symbols        = os.getenv('symbols_path')
+        symbols_length = os.getenv('symbols_length_path')
+        
+        symbols_exists        = os.path.exists(symbols)
+        symbols_length_exists = os.path.exists(symbols_length)     
+        
+        if not (symbols_exists and symbols_length_exists):
+            
+            print("Getting symbols...")
+            GetSymbol(self.data).get_symbols()
+            
+        else:
+            
+            print("Symbols already exists!")
