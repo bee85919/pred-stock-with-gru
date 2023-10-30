@@ -6,4 +6,4 @@ python prep_data.py
 
 ./train.sh
 
-python save_result.py
+python save_result.py 
