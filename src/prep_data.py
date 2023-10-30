@@ -1,9 +1,9 @@
 import os
 import pandas as pd
 from dotenv import load_dotenv
-from src.Util.txtReader import txtReader
-from src.Prep.GetData import GetData
-from src.Prep.SplitData import SplitData
+from Util.txtReader import txtReader
+from Prep.GetData import GetData
+from Prep.SplitData import SplitData
 
 
 load_dotenv()

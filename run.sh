@@ -1,9 +1,15 @@
 #!/bin/bash
 
-python conf_data.py
+INSTANCE_IP=$1
 
-python prep_data.py
+POSTGRES_CONTAINER_ID=$2
 
-./train.sh
+./scripts/load.sh $INSTANCE_IP $POSTGRES_CONTAINER_ID
 
-python save_result.py 
+python ./src/conf_data.py
+
+python ./src/prep_data.py
+
+./scripts/train.sh
+
+python ./src/save_result.py 

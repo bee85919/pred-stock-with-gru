@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-from src.Util.txtReader import txtReader
-from src.Prep.PrepData import PrepData
+from Util.txtReader import txtReader
+from Prep.PrepData import PrepData
 
 
 load_dotenv()

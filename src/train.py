@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
-from src.Util.txtReader import txtReader
-from src.Train.Train import Train
-from src.Train.Pooler import Pooler
+from Util.txtReader import txtReader
+from Train.Train import Train
+from Train.Pooler import Pooler
 
 
 load_dotenv()
