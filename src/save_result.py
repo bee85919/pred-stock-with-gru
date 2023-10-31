@@ -1,15 +1,16 @@
 import os
 from dotenv import load_dotenv
-from Util.txtReader import txtReader
-from Util.SavePred import SavePred
+from Utils.envLoader import envLoader
+from Utils.SavePred import SavePred
+from Utils.txtReader import txtReader
 
 
-load_dotenv()
-date_path = os.getenv('date_path')
+get_path = envLoader().get_path
+date_path = get_path('date_path')
 
 
-get = txtReader().get_list
-y, m, d, _ = get(date_path)
+get_list = txtReader().get_list
+y, m, d, _ = get_list(date_path)
 
 
 def save():

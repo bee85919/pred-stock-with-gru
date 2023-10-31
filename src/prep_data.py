@@ -1,19 +1,18 @@
-import os
 import pandas as pd
-from dotenv import load_dotenv
-from Util.txtReader import txtReader
 from Prep.GetData import GetData
 from Prep.SplitData import SplitData
+from Utils.envLoader import envLoader
+from Utils.txtReader import txtReader
 
 
-load_dotenv()
-prep_path = os.getenv('prep_path')
-data_path = os.getenv('data_path')
-symbols_path = os.getenv('symbols_path')
+get_path = envLoader().get_path
+prep_path = get_path('prep_path')
+data_path = get_path('data_path')
+symbols_path = get_path('symbols_path')
 
 
-get = txtReader().get_list
-symbols = get(symbols_path)
+get_list = txtReader().get_list
+symbols = get_list(symbols_path)
 
 
 def prep_data():    

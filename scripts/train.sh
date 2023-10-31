@@ -14,5 +14,5 @@ while true; do
 
   echo "Batch: ${cnt}/${symbols_len}"
 
-  python train_models.py    
+  python src/train.py
 done

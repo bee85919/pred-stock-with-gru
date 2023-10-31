@@ -1,16 +1,14 @@
 import pandas as pd
 import os
-from dotenv import load_dotenv
+from .envLoader import envLoader
 
 
 class SavePred:
-
     def __init__(self, date, pred_path=None, result_path=None):
-
-        load_dotenv()
+        get_path = envLoader().get_path
         self.date = date
-        self.pred_path = os.getenv('pred_path')
-        self.result_path = os.getenv('result_path')        
+        self.pred_path = get_path('pred_path')
+        self.result_path = get_path('result_path')        
         self.make_dir(self.pred_path)
         self.make_dir(self.result_path)
         
@@ -21,7 +19,6 @@ class SavePred:
         
 
     def generate_business_days(self):
-
         length = len(pd.read_csv(f'{self.pred_path}/pred_AMZN.csv'))
         business_days = pd.bdate_range(start=self.date, periods=length, freq='B')
         self.end_date = business_days[-1]

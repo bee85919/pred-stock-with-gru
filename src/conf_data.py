@@ -1,17 +1,18 @@
-import os
-from dotenv import load_dotenv
-from Util.txtReader import txtReader
 from Prep.PrepData import PrepData
+from Utils.txtReader import txtReader
+from Utils.envLoader import envLoader
 
 
-load_dotenv()
-csv_path = os.getenv('csv_path')
-date_path = os.getenv('date_path')
+get_path = envLoader().get_path
+csv_path = get_path('csv_path')
+date_path = get_path('date_path')
 
 
-get = txtReader().get_list
-csv_path = get(csv_path)
-y, m, d, p = get(date_path)
+get_list = txtReader().get_list
+csv_path = get_list(csv_path)
+y, m, d, p = get_list(date_path)
+print(csv_path)
+print(y, m, d, p)
 
 
 def conf_data():

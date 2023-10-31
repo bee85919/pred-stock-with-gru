@@ -4,7 +4,7 @@ INSTANCE_IP=$1
 
 POSTGRES_CONTAINER_ID=$2
 
-./scripts/load.sh $INSTANCE_IP $POSTGRES_CONTAINER_ID
+# ./scripts/load.sh $INSTANCE_IP $POSTGRES_CONTAINER_ID
 
 python ./src/conf_data.py
 

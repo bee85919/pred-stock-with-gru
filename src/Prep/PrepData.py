@@ -1,15 +1,15 @@
 import pandas as pd
 import os
-from dotenv import load_dotenv
 from .GetSymbol import GetSymbol
+from Utils.envLoader import envLoader
 
 
-class PrepData:
-    
-    def __init__(self, csv_path, year, month, day, period=70):
-                
-        load_dotenv()        
-        self.data_path = os.getenv('data_path')    
+class PrepData:    
+    def __init__(self, csv_path, year, month, day, period=300):                
+        self.get_path = envLoader().get_path
+        self.data_path = self.get_path('data_path')
+        self.symbols = self.get_path('symbols_path')
+        self.symbols_length = self.get_path('symbols_length_path')     
         
         print("DataLoader is initializing...")
         self.make_dirs()
@@ -21,9 +21,9 @@ class PrepData:
 
 
     def read_data(self, csv_path):        
-        data_amex = pd.read_csv(csv_path[0])        
-        data_nsdq = pd.read_csv(csv_path[1])        
-        data_nyse = pd.read_csv(csv_path[2])            
+        data_amex = pd.read_csv(csv_path[0]).rename(columns={'company_code': 'Symbol'})        
+        data_nsdq = pd.read_csv(csv_path[1]).rename(columns={'company_code': 'Symbol'})        
+        data_nyse = pd.read_csv(csv_path[2]).rename(columns={'company_code': 'Symbol'})            
         return data_amex, data_nsdq, data_nyse
 
 
@@ -33,11 +33,10 @@ class PrepData:
 
 
     def preprocess_data(self, data_amex, data_nsdq, data_nyse):        
-        data = pd.concat([data_amex, data_nsdq, data_nyse])        
-        data = data.drop(columns=['Unnamed: 0'])        
-        data['Date'] = pd.to_datetime(data['Date'])        
-        data = data.set_index('Date').sort_values(by=['Date', 'symbol'])        
-        data = data[['symbol', 'Adj Close', 'Open', 'High', 'Low', 'Close', 'Volume']]
+        data = pd.concat([data_amex, data_nsdq, data_nyse])     
+        data['Date'] = pd.to_datetime(data['date'])        
+        data = data.set_index('Date').sort_values(by=['Date', 'Symbol'])        
+        data = data[['Symbol', 'Adj Close', 'Open', 'High', 'Low', 'Close', 'Volume']]
         return data
     
 
@@ -67,19 +66,12 @@ class PrepData:
         return self.load_data()
         
         
-    def get_symbol(self):
-        
-        symbols        = os.getenv('symbols_path')
-        symbols_length = os.getenv('symbols_length_path')
-        
-        symbols_exists        = os.path.exists(symbols)
-        symbols_length_exists = os.path.exists(symbols_length)     
-        
-        if not (symbols_exists and symbols_length_exists):
-            
+    def get_symbol(self):           
+        symbols_exists = os.path.exists(self.symbols)
+        symbols_length_exists = os.path.exists(self.symbols_length)
+        if not (symbols_exists and symbols_length_exists):            
             print("Getting symbols...")
             GetSymbol(self.data).get_symbols()
             
-        else:
-            
+        else:            
             print("Symbols already exists!")

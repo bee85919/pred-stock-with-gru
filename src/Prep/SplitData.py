@@ -1,24 +1,25 @@
 import os
 import pandas as pd
-from dotenv import load_dotenv
+from Utils.envLoader import envLoader
 
 
 class SplitData:
     
     def __init__(self, data, symbol, len_test=23):
         
-        load_dotenv()
-        self.train_path = os.getenv('train_path')
-        self.test_path = os.getenv('test_path')
-        
         self.data = data
         self.symbol = symbol
         self.len_test = len_test
+        
+        self.get_path = envLoader().self.get_path
+        self.train_path = self.get_path('train_path')
+        self.test_path = self.get_path('test_path')
         
 
     def splitter(self):
         total_rows = len(self.data)
         train_size = total_rows - self.len_test
+        
         train_set = self.data.iloc[:train_size]
         test_set = self.data.iloc[train_size:]
 
@@ -30,6 +31,7 @@ class SplitData:
 
         train_set.to_csv(train_file_path, index=False)
         test_set.to_csv(test_file_path, index=False)
+        
         print(f"Saved {self.symbol} train data to {train_file_path}")
         print(f"Saved {self.symbol} test data to {test_file_path}")
 

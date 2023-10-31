@@ -1,13 +1,12 @@
 import os
 import pandas as pd
-from dotenv import load_dotenv
+from Utils.envLoader import envLoader
 
 
-class GetData:
-    
-    def __init__(self, data, symbols):        
-        load_dotenv()        
-        self.prep_path = os.getenv('prep_path')        
+class GetData:    
+    def __init__(self, data, symbols):
+        self.get_env = envLoader.get_env
+        self.prep_path = self.get_env('prep_path')        
         self.data = data        
         self.symbols = symbols        
         self.make_dirs()                

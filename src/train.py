@@ -1,12 +1,12 @@
-import os
-from dotenv import load_dotenv
-from Util.txtReader import txtReader
+from Utils.envLoader import envLoader
+from Utils.txtReader import txtReader
 from Train.Train import Train
 from Train.Pooler import Pooler
 
 
-load_dotenv()
-symbols_path = os.getenv('symbols_path')
+get_path = envLoader().get_path
+symbols_path = get_path('symbols_path')
+
 
 get = txtReader().get_list
 symbols_lst = get(symbols_path)
