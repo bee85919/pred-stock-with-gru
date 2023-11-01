@@ -4,6 +4,7 @@ pip install requirements.txt
 # 실행 준비
 chmod +x ./scripts/train.sh
 chmod +x ./scripts/load.sh
+chmod +x ./scripts/upload.sh
 chmod +x ./run.sh
 
 # 실행

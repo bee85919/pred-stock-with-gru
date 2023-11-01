@@ -5,10 +5,10 @@ from Utils.envLoader import envLoader
 
 class GetData:    
     def __init__(self, data, symbols):
-        self.get_env = envLoader.get_env
-        self.prep_path = self.get_env('prep_path')        
+        get_path = envLoader().get_path
+        self.prep_path = get_path('prep_path')        
         self.data = data        
-        self.symbols = symbols        
+        self.symbols = [s for symbol in symbols for s in symbol]
         self.make_dirs()                
         print("Generating datasets for symbols...")        
         self.get_data_prepared(self.symbols)
@@ -21,12 +21,13 @@ class GetData:
 
 
     def get_data_prepared(self, symbols):        
-        total_symbols = len(symbols)        
+        total_symbols = len(symbols)      
         for index, symbol in enumerate(symbols):
+            print(index, symbol)
             amzn = self.data[self.data['symbol'] == 'AMZN']
-            temp = self.data[self.data['symbol'] == symbol]            
+            temp = self.data[self.data['symbol'] == symbol]
             if len(temp) == len(amzn):
-                temp = temp.set_index('Date').drop(columns=['symbol'])                                
+                temp = temp.set_index('date').drop(columns=['symbol'])                                
                 temp_path = os.path.join(self.prep_path, f"{symbol}.csv")                
                 temp.to_csv(temp_path)                
                 print(f"Symbol {index+1}/{total_symbols}: {symbol} ... Saved!")                

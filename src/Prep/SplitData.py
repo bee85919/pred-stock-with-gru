@@ -11,7 +11,7 @@ class SplitData:
         self.symbol = symbol
         self.len_test = len_test
         
-        self.get_path = envLoader().self.get_path
+        self.get_path = envLoader().get_path
         self.train_path = self.get_path('train_path')
         self.test_path = self.get_path('test_path')
         

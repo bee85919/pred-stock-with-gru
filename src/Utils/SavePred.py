@@ -37,11 +37,12 @@ class SavePred:
                 df.dropna(subset=['Adj Close'], inplace=True)
                 df = df[df['Adj Close'] != 0]
                 df.index = business_days[:len(df)]
-                df.index.name = 'Date'
-                df['Symbol'] = symbol
-                df = df[['Symbol', 'Adj Close']]
+                df.index.name = 'date'
+                df['symbol'] = symbol
+                df = df.rename(columns={'Adj Close': 'close'})
+                df = df[['symbol', 'close']]
                 all_dfs.append(df)
         result_df = pd.concat(all_dfs)
-        result_df.sort_values(by=['Symbol', 'Date'], inplace=True)
+        result_df.sort_values(by=['symbol', 'date'], inplace=True)
         result_df.to_csv(f'{self.result_path}/result.csv')
         print("Merged CSV files successfully.")

@@ -7,8 +7,8 @@ class GetSymbol:
     def __init__(self, data):
         self.get_path = envLoader().get_path
         self.data = data
-        self.symbols_path = self.get_env('symbols_path')
-        self.symbols_length_path = self.get_env('symbols_length_path')
+        self.symbols_path = self.get_path('symbols_path')
+        self.symbols_length_path = self.get_path('symbols_length_path')
         
 
     def get_symbols(self):
