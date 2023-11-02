@@ -1,28 +1,21 @@
 from Utils.envLoader import envLoader
 from Utils.txtReader import txtReader
-from Train.Train import Train
+from Utils.createDir import createDir
 from Train.Pooler import Pooler
 
 
-get_path = envLoader().get_path
-symbols_path = get_path('symbols_path')
+pth = envLoader().get_path.get
+lst = txtReader().get_list
+upd = txtReader().update_list
+dir = createDir
 
 
-get = txtReader().get_list
-symbols_lst = get(symbols_path)
-symbols = symbols_lst.pop(0)
-
-
-def train(p_num=8):
-    Pooler(symbols, p_num)
-    
-
-def write_list_to_file(lst, file_path):
-    with open(file_path, 'w') as f:
-        f.write(repr(lst))
+dir('logs')
+dir('pred')
 
 
 if __name__ == "__main__":
-    Train.make_dir()
-    train()
-    write_list_to_file(symbols_lst, symbols_path)
+    syms_lst = lst(pth('syms'))
+    syms = syms_lst.pop(0) 
+    Pooler(syms, pnum=8)
+    upd(syms_lst, pth('syms'))
