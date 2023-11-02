@@ -2,31 +2,38 @@ import os
 from dotenv import load_dotenv
 
 
+load_dotenv()
+
+
 class envLoader:
     def __init__(self):
-        load_dotenv()
-        self.base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.base = self.dir_name(3)
+        
+        
+    def dir_name(n):
+        path = os.path.abspath(__file__)
+        for _ in range(n): path = os.path.dirname(path)
+        return path
         
 
-    def get_path(self, env_var):
-        relative_path = os.getenv(env_var)
-        if relative_path is None:
-            return None
-        return os.path.join(self.base_path, relative_path)
+    def get_path(self, env):
+        env_path = os.getenv(env)
+        return os.path.join(self.base, env_path) if os.getenv(env) else None
     
 
     def path(self):
+        get = self.get_path
         path = {
-            'csv_path': self.get_path('csv_path'),
-            'date_path': self.get_path('date_path'),
-            'symbols_path': self.get_path('symbols_path'),
-            'symbols_length_path': self.get_path('symbols_length_path'),
-            'logs_path': self.get_path('logs_path'),
-            'prep_path': self.get_path('prep_path'),
-            'pred_path': self.get_path('pred_path'),
-            'train_path': self.get_path('train_path'),
-            'test_path': self.get_path('test_path'),
-            'result_path': self.get_path('result_path'),
-            'data_path': self.get_path('data_path')
+            'csvs': get('csvs_path'),
+            'date': get('date_path'),
+            'syms': get('syms_path'),
+            'syms_lnth_path': get('syms_lnth_path'),
+            'data': get('data_path'),
+            'logs': get('logs_path'),
+            'prep': get('prep_path'),
+            'pred': get('pred_path'),
+            'test': get('test_path'),
+            'train': get('train_path'),
+            'result': get('result_path')
         }
         return path
