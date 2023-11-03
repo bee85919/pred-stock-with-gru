@@ -1,17 +1,12 @@
 #!/bin/bash
 
-INSTANCE_IP=$1
 
-POSTGRES_CONTAINER_ID=$2
+source ./source.sh
 
-./scripts/load.sh $INSTANCE_IP $POSTGRES_CONTAINER_ID
 
-python ./src/conf_data.py
-
-python ./src/prep_data.py
-
-./scripts/train.sh
-
-python ./src/save_result.py 
-
-./scripts/upload.sh $INSTANCE_IP $POSTGRES_CONTAINER_ID
+sh      $SH/load.sh
+python  $PY/configure.py
+python  $PY/prepare.py
+sh      $SH/train.sh
+python  $PY/save.py
+sh      $SH/upload.sh

@@ -1,5 +1,6 @@
 # 설치
-pip install requirements.txt
+pip install -r requirements.txt
+pip install --upgrade tensorflow
 
 # 실행 준비
 chmod +x ./scripts/train.sh
@@ -8,9 +9,7 @@ chmod +x ./scripts/upload.sh
 chmod +x ./run.sh
 
 # 실행
-echo INSTNACE_IP={EC2 인스턴스 IP}
-echo POSTGRES_CONTAINER_ID={Docker의 postgresql container ID}
-./run.sh
+./run.sh {EC2 인스턴스 IP} {Docker의 postgresql container ID}
 
 # input
 - input_data : csv 데이터 셋 저장 폴더

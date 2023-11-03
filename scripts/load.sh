@@ -2,7 +2,7 @@
 export INSTANCE_IP=$1
 export POSTGRES_CONTAINER_ID=$2
 export INPUT_PATH=$(pwd)/input
-export INPUT_DATA_PATH=$(pwd)/input/input_data
+export INPUT_DATA_PATH=$(pwd)/input/csvs
 
 
 echo "INSTANCE_IP: $INSTANCE_IP"
