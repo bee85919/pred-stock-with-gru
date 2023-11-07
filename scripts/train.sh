@@ -1,18 +1,22 @@
 #!/bin/bash
 
+
+
+
+
 cnt=0
 while true; do
   ((cnt++))
   
-  symbols_len=$(cat ./input/symbols_length.txt)
-  symbols_txt=$(cat ./input/symbols.txt)
+  batch_size=$(cat ./input/batch_size.txt)
+  syms=$(cat ./input/syms.txt)
 
-  if [[ "$symbols_txt" == "[]" ]]; then
+  if [[ "$syms" == "[]" ]]; then
     echo "작업이 완료되었습니다."
     break
   fi
 
-  echo "Batch: ${cnt}/${symbols_len}"
+  echo "Batch: ${cnt}/${batch_size}"
 
   python src/train.py
 done
