@@ -1,11 +1,16 @@
 # 설치
 pip install -r requirements.txt
+
 pip install --upgrade tensorflow
+
 
 # 실행 준비
 chmod +x ./scripts/train.sh
+
 chmod +x ./scripts/load.sh
+
 chmod +x ./scripts/upload.sh
+
 chmod +x ./run.sh
 
 # 실행
